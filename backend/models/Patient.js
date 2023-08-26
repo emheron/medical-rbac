@@ -10,5 +10,6 @@ const PatientSchema = new mongoose.Schema({
   gender: String,
   dateOfBirth: Date,
 });
+PatientSchema.index({ medicalHistory: 'text' });
 
 module.exports = mongoose.model('Patient', PatientSchema);
