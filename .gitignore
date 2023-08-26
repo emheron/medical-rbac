@@ -1,0 +1,18 @@
+# Node
+node_modules/
+npm-debug.log
+package-lock.json
+
+# React
+/build/
+/.env
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+
+# Other
+.DS_Store
