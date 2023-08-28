@@ -1,5 +1,7 @@
 const Patient = require('../models/Patient'); 
-const router = require('./routes');
+const express = require('express');
+const { hasPermission } = require('./routes');
+const router = express.Router();
 
 router.post('/add_patient', hasPermission(['Doctor', 'Nurse', 'Admin']), async (req, res) => {
   try {
@@ -22,7 +24,7 @@ router.get('/all_patients', hasPermission(['Doctor', 'Nurse', 'Admin']), async (
     try {
     const patient = await Patient.findById(req.params.id);
     if (!patient) {
-        return res.satus(400).json({ error: 'Patient not found' });
+        return res.status(404).json({ error: 'Patient not found' });
     }
     res.json(patient);
     } catch (error) {
@@ -38,7 +40,7 @@ router.get('/all_patients', hasPermission(['Doctor', 'Nurse', 'Admin']), async (
         });
         res.status(200).json(patientResult);
     } catch(error) {
-        res.status(400).json({ error: error.messsage })
+        res.status(400).json({ error: error.message })
     }
   });
 
@@ -52,3 +54,5 @@ router.get('/all_patients', hasPermission(['Doctor', 'Nurse', 'Admin']), async (
     await Patient.findByIdAndDelete(req.params.id);
     res.json({ message: 'Patient deleted' });
   });
+
+  module.exports = router;

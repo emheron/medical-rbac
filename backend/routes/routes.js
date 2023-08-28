@@ -1,6 +1,6 @@
 const express = require('express');
-const User = require('./models/User');
-const Role = require('./models/Role');
+const User = require('../models/User');
+const Role = require('../models/Role');
 
 const router = express.Router();
 
@@ -18,5 +18,7 @@ router.get('/doctors_only', hasPermission(['Doctor']), (req, res) => {
   res.send('What up doc!');
 });
 
-
-module.exports = router;
+module.exports = {
+  router,
+  hasPermission
+};
